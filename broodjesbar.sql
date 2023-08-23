@@ -11,7 +11,6 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -32,18 +31,6 @@ CREATE TABLE `bestellingen` (
   `broodje_id` int(11) NOT NULL,
   `gebruiker_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Gegevens worden geëxporteerd voor tabel `bestellingen`
---
-
-INSERT INTO `bestellingen` (`id`, `broodje_id`, `gebruiker_id`) VALUES
-(40, 7, 1),
-(41, 6, 1),
-(42, 5, 5),
-(43, 7, 5),
-(44, 4, 5),
-(45, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -90,15 +77,6 @@ CREATE TABLE `gebruikers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Gegevens worden geëxporteerd voor tabel `gebruikers`
---
-
-INSERT INTO `gebruikers` (`id`, `naam`, `email`, `wachtwoord`, `is_blocked`) VALUES
-(1, 'Pieter', 'dhontpieter@hotmail.com', '$2y$10$NlfVtsi9SZcPdV0CiQIgRuiWrVuJv36MxsJsxk2AtS4//7LgcIKw6', 0),
-(4, 'hero', 'hero@super.com', '$2y$10$B5qis7h0p8FXiD610YrSz.CfI4dH5e0DTobcVu44Q7fgOj7Z0YJ3S', 0),
-(5, 'villain', 'vill@evil.org', '$2y$10$iGcchl5PLTFcRe/mz3ci..h80shvEqL5xK5to3OwJoULoOtPgO58C', 0);
-
---
 -- Indexen voor geëxporteerde tabellen
 --
 
@@ -131,7 +109,7 @@ ALTER TABLE `gebruikers`
 -- AUTO_INCREMENT voor een tabel `bestellingen`
 --
 ALTER TABLE `bestellingen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT voor een tabel `broodjes`
@@ -143,7 +121,7 @@ ALTER TABLE `broodjes`
 -- AUTO_INCREMENT voor een tabel `gebruikers`
 --
 ALTER TABLE `gebruikers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Beperkingen voor geëxporteerde tabellen
@@ -155,6 +133,7 @@ ALTER TABLE `gebruikers`
 ALTER TABLE `bestellingen`
   ADD CONSTRAINT `bestellingen_ibfk_1` FOREIGN KEY (`broodje_id`) REFERENCES `broodjes` (`ID`),
   ADD CONSTRAINT `bestellingen_ibfk_2` FOREIGN KEY (`gebruiker_id`) REFERENCES `gebruikers` (`id`);
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
