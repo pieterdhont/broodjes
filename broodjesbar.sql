@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 22 aug 2023 om 15:27
+-- Gegenereerd op: 23 aug 2023 om 22:52
 -- Serverversie: 10.4.28-MariaDB
 -- PHP-versie: 8.2.4
 
@@ -32,6 +32,18 @@ CREATE TABLE `bestellingen` (
   `broodje_id` int(11) NOT NULL,
   `gebruiker_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `bestellingen`
+--
+
+INSERT INTO `bestellingen` (`id`, `broodje_id`, `gebruiker_id`) VALUES
+(40, 7, 1),
+(41, 6, 1),
+(42, 5, 5),
+(43, 7, 5),
+(44, 4, 5),
+(45, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -73,8 +85,18 @@ CREATE TABLE `gebruikers` (
   `id` int(11) NOT NULL,
   `naam` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `wachtwoord` varchar(255) NOT NULL
+  `wachtwoord` varchar(255) NOT NULL,
+  `is_blocked` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `gebruikers`
+--
+
+INSERT INTO `gebruikers` (`id`, `naam`, `email`, `wachtwoord`, `is_blocked`) VALUES
+(1, 'Pieter', 'dhontpieter@hotmail.com', '$2y$10$NlfVtsi9SZcPdV0CiQIgRuiWrVuJv36MxsJsxk2AtS4//7LgcIKw6', 0),
+(4, 'hero', 'hero@super.com', '$2y$10$B5qis7h0p8FXiD610YrSz.CfI4dH5e0DTobcVu44Q7fgOj7Z0YJ3S', 0),
+(5, 'villain', 'vill@evil.org', '$2y$10$iGcchl5PLTFcRe/mz3ci..h80shvEqL5xK5to3OwJoULoOtPgO58C', 0);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -109,7 +131,7 @@ ALTER TABLE `gebruikers`
 -- AUTO_INCREMENT voor een tabel `bestellingen`
 --
 ALTER TABLE `bestellingen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT voor een tabel `broodjes`
@@ -121,7 +143,7 @@ ALTER TABLE `broodjes`
 -- AUTO_INCREMENT voor een tabel `gebruikers`
 --
 ALTER TABLE `gebruikers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Beperkingen voor geëxporteerde tabellen
