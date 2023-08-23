@@ -19,7 +19,7 @@ $users = GebruikersLijst::getAllUsers();
 </head>
 <body>
 <h1>Admin Page</h1>
-<table border="1">
+<table>
     <thead>
         <tr>
             <th>ID</th>
