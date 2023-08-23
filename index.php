@@ -21,6 +21,7 @@ declare(strict_types=1);
         <li><a href="bestel.php">Bestellen</a></li>
         <li><a href="overzicht.php">Overzicht bestellingen</a></li>
         <li><a href="uitloggen.php">Log uit</a></li>
+        <li><a href="admin.php">Admin Pagina</a></li>
     </ul>
     
 </body>

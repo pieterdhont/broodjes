@@ -36,7 +36,10 @@ class GebruikersLijst {
         $gebruiker = $stmt->fetch();
 
         if ($gebruiker && password_verify($wachtwoord, $gebruiker['wachtwoord'])) {
-            return new Gebruiker((int)$gebruiker['id'], $gebruiker['naam'], $gebruiker['email']);
+            if ($gebruiker['is_blocked'] == 1) {
+                return null;  
+            }
+            return new Gebruiker((int)$gebruiker['id'], $gebruiker['naam'], $gebruiker['email'], (bool)$gebruiker['is_blocked']);
         }
 
         return null;
@@ -53,6 +56,41 @@ class GebruikersLijst {
         }
 
         return null;
+    }
+
+    public static function blockUser(int $userId): void {
+        $db = Database::getConnection();
+        $stmt = $db->prepare("UPDATE gebruikers SET is_blocked = 1 WHERE id = :id");
+        $stmt->execute(['id' => $userId]);
+    }
+
+    public static function unblockUser(int $userId): void {
+        $db = Database::getConnection();
+        $stmt = $db->prepare("UPDATE gebruikers SET is_blocked = 0 WHERE id = :id");
+        $stmt->execute(['id' => $userId]);
+    }
+
+    public static function isUserBlocked(string $email): bool {
+        $db = Database::getConnection();
+        $stmt = $db->prepare("SELECT is_blocked FROM gebruikers WHERE email = :email");
+        $stmt->execute(['email' => $email]);
+        $result = $stmt->fetch();
+        
+        if ($result && $result['is_blocked'] == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function getAllUsers(): array {
+        $db = Database::getConnection();
+        $stmt = $db->prepare("SELECT * FROM gebruikers");
+        $stmt->execute();
+        $users = [];
+        while ($row = $stmt->fetch()) {
+            $users[] = new Gebruiker((int)$row['id'], $row['naam'], $row['email'], (bool)$row['is_blocked']);
+        }
+        return $users;
     }
 }
 ?>

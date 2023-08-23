@@ -8,7 +8,7 @@ require_once 'GebruikersLijst.php';
 
 session_start();
 
-// Check if the user is already logged in
+
 if (isset($_SESSION["userID"])) {
     $message = "U bent al ingelogd.";
 } else {
@@ -16,14 +16,18 @@ if (isset($_SESSION["userID"])) {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST["email"];
         $wachtwoord = $_POST["wachtwoord"];
-        $gebruiker = GebruikersLijst::inloggen($email, $wachtwoord);
-        if ($gebruiker) {
-            setcookie("email", $email, time() + (86400 * 30), "/");
-            $_SESSION["userID"] = $gebruiker->getId();
-            header("Location: bestel.php");
-            exit;
+        if (GebruikersLijst::isUserBlocked($email)) {
+            $message = "Uw account is geblokkeerd.";
         } else {
-            $message = "Ongeldige e-mail of wachtwoord.";
+            $gebruiker = GebruikersLijst::inloggen($email, $wachtwoord);
+            if ($gebruiker) {
+                setcookie("email", $email, time() + (86400 * 30), "/");
+                $_SESSION["userID"] = $gebruiker->getId();
+                header("Location: bestel.php");
+                exit;
+            } else {
+                $message = "Ongeldige e-mail of wachtwoord.";
+            }
         }
     } elseif (isset($_GET["error"]) && $_GET["error"] === "notloggedin") {
         $message = "U moet eerst inloggen om toegang te krijgen tot de bestelpagina.";
